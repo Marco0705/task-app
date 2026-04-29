@@ -18,3 +18,11 @@ Aplicación web de tareas desarrollada como proyecto final DevOps / Platform Eng
 ```bash
 cd app/backend/TaskApi
 dotnet run
+````
+
+### Frontend
+```bash
+cd app/forntend/task-web
+npm start
+````
+
