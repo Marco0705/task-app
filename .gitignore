@@ -15,10 +15,21 @@ dist/
 # .NET
 bin/
 obj/
+*.user
+*.suo
 
 # Local databases
 *.db
 *.sqlite
 
-# Env
-.env*
+# Environment / secrets
+.env
+.env.*
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Logs
+*.log
