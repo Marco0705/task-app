@@ -21,6 +21,9 @@ WORKDIR /app
 # Security: non-root user (idempotente)
 RUN (getent group app || addgroup --system app) \
  && (id -u app >/dev/null 2>&1 || adduser --system --ingroup app app)
+
+# Create writable folder for SQLite
+RUN mkdir -p /data && chown -R app:app /data
 USER app
 
 # Copy published output
