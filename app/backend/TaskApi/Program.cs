@@ -48,7 +48,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseCors(CorsPolicy);
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Container"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();
