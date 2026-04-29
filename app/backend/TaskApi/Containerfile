@@ -1,0 +1,31 @@
+# =========================
+# Build stage
+# =========================
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore first (layer cache)
+COPY *.csproj .
+RUN dotnet restore
+
+# Copy rest of the source
+COPY . .
+RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+
+# =========================
+# Runtime stage
+# =========================
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+# Security: non‑root user
+RUN addgroup --system app && adduser --system --ingroup app app
+USER app
+
+# Copy published output
+COPY --from=build /app/publish .
+
+EXPOSE 8080
+ENV ASPNETCORE_URLS=http://0.0.0.0:8080
+
+ENTRYPOINT ["dotnet", "TaskApi.dll"]
