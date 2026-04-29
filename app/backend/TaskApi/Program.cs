@@ -5,10 +5,10 @@ using TaskApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- ConfiguraciÛn DB (SQLite)
+// --- Configuraci√≥n DB (SQLite)
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-    var cs = builder.Configuration.GetConnectionString("Default") ?? "Data Source=task.db";
+   var cs = builder.Configuration.GetConnectionString("Default") ?? "Data Source=/data/task.db";
     opt.UseSqlite(cs);
 });
 
@@ -39,7 +39,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// --- Migraciones autom·ticas (MVP r·pido)
+// --- Migraciones autom√°ticas (MVP r√°pido)
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
