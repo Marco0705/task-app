@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vs/
+.idea/
+.vscode/
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# .NET
+bin/
+obj/
+
+# Local databases
+*.db
+*.sqlite
+
+# Env
+.env*

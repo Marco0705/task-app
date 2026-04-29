@@ -1,0 +1,12 @@
+/* Un toque de suavidad en la lista */
+.list-group-item {
+  transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.list-group-item:hover {
+  background-color: rgba(13, 110, 253, 0.04); /* azul bootstrap suave */
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
