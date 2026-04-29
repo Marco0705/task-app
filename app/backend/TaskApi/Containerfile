@@ -18,8 +18,9 @@ RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
-# Security: non‑root user
-RUN addgroup --system app && adduser --system --ingroup app app
+# Security: non-root user (idempotente)
+RUN (getent group app || addgroup --system app) \
+ && (id -u app >/dev/null 2>&1 || adduser --system --ingroup app app)
 USER app
 
 # Copy published output
