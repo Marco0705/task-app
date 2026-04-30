@@ -10,6 +10,8 @@ Este repositorio está diseñado como **proyecto de portfolio profesional**, sig
 
 ## 🏗 Visión general de la arquitectura
 
+````
+
 Developer
   └─ Git (develop → Pull Request → main)
         ├─ CI (GitHub Actions)
@@ -30,7 +32,7 @@ GitHub (main)
               ├─ OpenTelemetry Collector
               ├─ Prometheus
               └─ Grafana
-
+````
 ## 🧰 Tech Stack
 Aplicación
 
@@ -190,6 +192,7 @@ npm install
 npm start
 
 ## 📁 Estructura del repositorio
+````
 app/
   ├─ backend/
   └─ frontend/
@@ -201,6 +204,7 @@ infra/
   └─ ansible/
 .github/
   └─ workflows/
+````
 
 ## 📌 Estado del proyecto
 ✅ Implementación DevOps end‑to‑end completada
