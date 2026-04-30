@@ -1,10 +1,10 @@
 # Task App — DevOps End‑to‑End Project
 
-Aplicación web de gestión de tareas desarrollada como **proyecto final de DevOps / Platform Engineering**.
+Aplicación web de gestión de tareas desarrollada como **proyecto final de DevOps**.
 
 El objetivo del proyecto es demostrar una implementación **end‑to‑end** de prácticas DevOps reales, cubriendo todo el ciclo de vida de una aplicación: desarrollo, CI/CD, contenedores, Kubernetes, GitOps, observabilidad, seguridad (DevSecOps), Infrastructure as Code (IaC) y ChatOps.
 
-Este repositorio está diseñado como **proyecto de portfolio profesional**, siguiendo patrones y decisiones habituales en equipos DevOps y Platform Engineering.
+Este repositorio está diseñado como **proyecto de portfolio profesional**, siguiendo patrones y decisiones habituales en equipos DevOps.
 
 ---
 
@@ -32,50 +32,50 @@ GitHub (main)
               ├─ OpenTelemetry Collector
               ├─ Prometheus
               └─ Grafana
-````
-## 🧰 Tech Stack
+
+🧰 Tech Stack
 Aplicación
 
 Frontend: Angular
 Backend: .NET 8 Minimal API
 
-## CI/CD
+CI/CD
 
 CI: GitHub Actions
 CD: GitHub Actions
 Container Registry: GitHub Container Registry (GHCR)
 
-## Contenedores y orquestación
+Contenedores y orquestación
 
 Containers: Podman (entorno local)
 Orchestration: Kubernetes (Minikube)
 Packaging: Helm
 
-## Observabilidad
+Observabilidad
 
 Instrumentación: OpenTelemetry
 Métricas: Prometheus (kube‑prometheus‑stack)
 Dashboards: Grafana
 
-## Seguridad (DevSecOps)
+Seguridad (DevSecOps)
 
 Calidad y seguridad de código: SonarCloud
 Vulnerabilidades de contenedores: Trivy (integrado en CD)
 
-## GitOps
+GitOps
 
 Continuous Deployment: ArgoCD
 Modelo declarativo: auto‑sync y self‑healing
 
-## Infrastructure as Code
+Infrastructure as Code
 
 Terraform: definición declarativa de infraestructura
 Ansible: Configuration as Code (idempotente)
 
-## ChatOps
+ChatOps
 
 Slack: notificaciones automáticas del pipeline de CD
-
+````
 
 ## 🔁 Flujo de trabajo (Gitflow)
 El repositorio sigue un flujo de trabajo profesional:
@@ -202,6 +202,11 @@ deploy/
 infra/
   ├─ terraform/
   └─ ansible/
+observability/
+  ├─ otel-collector.yaml
+  ├─ otel-collector-service.yaml
+  ├─ otel-collector-servicemonitor.yaml
+  └─ prometheus-values.yaml
 .github/
   └─ workflows/
 ````
@@ -211,4 +216,4 @@ infra/
 ✅ CI/CD, GitOps, Observabilidad, Seguridad, IaC y ChatOps operativos
 
 ## 👤 Autor
-Proyecto desarrollado por Marco Muñoz Gutiérrez como ejercicio práctico de DevOps / Platform Engineering.
+Proyecto desarrollado por **Marco Muñoz Gutiérrez**.
