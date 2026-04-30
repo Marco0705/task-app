@@ -13,7 +13,6 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  # Nombre de imágenes (en minúsculas para GHCR). Cambia si quieres otros nombres.
   IMAGE_BACKEND: taskapi
   IMAGE_FRONTEND: taskweb
 
@@ -22,10 +21,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # -------------------------
+      # Checkout
+      # -------------------------
       - name: Checkout
         uses: actions/checkout@v4
 
-      # GHCR requiere owner en minúsculas (por ejemplo Marco0705 -> marco0705)
+      # -------------------------
+      # Compute image names
+      # -------------------------
       - name: Compute image base
         id: vars
         shell: bash
@@ -35,6 +39,9 @@ jobs:
           echo "IMAGE_BACKEND_FULL=${{ env.REGISTRY }}/$OWNER_LC/${{ env.IMAGE_BACKEND }}" >> $GITHUB_ENV
           echo "IMAGE_FRONTEND_FULL=${{ env.REGISTRY }}/$OWNER_LC/${{ env.IMAGE_FRONTEND }}" >> $GITHUB_ENV
 
+      # -------------------------
+      # Login GHCR
+      # -------------------------
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -42,9 +49,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # -------------------------
+      # =========================
       # BACKEND
-      # -------------------------
+      # =========================
       - name: Metadata (backend)
         id: meta_backend
         uses: docker/metadata-action@v5
@@ -55,7 +62,24 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=tag
 
-      - name: Build & push (backend)
+      - name: Build backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: app/backend/TaskApi
+          file: app/backend/TaskApi/Containerfile
+          push: false
+          tags: ${{ steps.meta_backend.outputs.tags }}
+
+      # 🔐 Trivy scan backend (bloquea CRITICAL)
+      - name: Trivy scan (backend)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE_BACKEND_FULL }}:latest
+          severity: CRITICAL
+          exit-code: 1
+          ignore-unfixed: true
+
+      - name: Push backend image
         uses: docker/build-push-action@v6
         with:
           context: app/backend/TaskApi
@@ -64,9 +88,9 @@ jobs:
           tags: ${{ steps.meta_backend.outputs.tags }}
           labels: ${{ steps.meta_backend.outputs.labels }}
 
-      # -------------------------
+      # =========================
       # FRONTEND
-      # -------------------------
+      # =========================
       - name: Metadata (frontend)
         id: meta_frontend
         uses: docker/metadata-action@v5
@@ -77,7 +101,24 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=tag
 
-      - name: Build & push (frontend)
+      - name: Build frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: app/frontend/task-web
+          file: app/frontend/task-web/Containerfile
+          push: false
+          tags: ${{ steps.meta_frontend.outputs.tags }}
+
+      # 🔐 Trivy scan frontend (bloquea CRITICAL)
+      - name: Trivy scan (frontend)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE_FRONTEND_FULL }}:latest
+          severity: CRITICAL
+          exit-code: 1
+          ignore-unfixed: true
+
+      - name: Push frontend image
         uses: docker/build-push-action@v6
         with:
           context: app/frontend/task-web
