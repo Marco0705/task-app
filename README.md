@@ -10,7 +10,6 @@ Este repositorio está diseñado como **proyecto de portfolio profesional**, sig
 
 ## 🏗 Visión general de la arquitectura
 
-```text
 Developer
   └─ Git (develop → Pull Request → main)
         ├─ CI (GitHub Actions)
@@ -32,51 +31,51 @@ GitHub (main)
               ├─ Prometheus
               └─ Grafana
 
-🧰 Tech Stack
+## 🧰 Tech Stack
 Aplicación
 
 Frontend: Angular
 Backend: .NET 8 Minimal API
 
-CI/CD
+## CI/CD
 
 CI: GitHub Actions
 CD: GitHub Actions
 Container Registry: GitHub Container Registry (GHCR)
 
-Contenedores y orquestación
+## Contenedores y orquestación
 
 Containers: Podman (entorno local)
 Orchestration: Kubernetes (Minikube)
 Packaging: Helm
 
-Observabilidad
+## Observabilidad
 
 Instrumentación: OpenTelemetry
 Métricas: Prometheus (kube‑prometheus‑stack)
 Dashboards: Grafana
 
-Seguridad (DevSecOps)
+## Seguridad (DevSecOps)
 
 Calidad y seguridad de código: SonarCloud
 Vulnerabilidades de contenedores: Trivy (integrado en CD)
 
-GitOps
+## GitOps
 
 Continuous Deployment: ArgoCD
 Modelo declarativo: auto‑sync y self‑healing
 
-Infrastructure as Code
+## Infrastructure as Code
 
 Terraform: definición declarativa de infraestructura
 Ansible: Configuration as Code (idempotente)
 
-ChatOps
+## ChatOps
 
 Slack: notificaciones automáticas del pipeline de CD
 
 
-🔁 Flujo de trabajo (Gitflow)
+## 🔁 Flujo de trabajo (Gitflow)
 El repositorio sigue un flujo de trabajo profesional:
 
 Desarrollo en la rama develop
@@ -124,7 +123,7 @@ Push a GHCR
 Notificación automática a Slack
 
 
-☸️ Kubernetes y GitOps
+## ☸️ Kubernetes y GitOps
 
 Cluster local con Minikube
 Despliegue definido mediante Helm charts
@@ -137,7 +136,7 @@ Self‑healing
 Git como única fuente de la verdad
 
 
-📊 Observabilidad
+## 📊 Observabilidad
 
 Backend instrumentado con OpenTelemetry
 Métricas y trazas enviadas al OpenTelemetry Collector
@@ -152,7 +151,7 @@ Consumo de recursos
 
 
 
-🔐 Seguridad (DevSecOps)
+## 🔐 Seguridad (DevSecOps)
 
 SonarCloud asegura calidad y seguridad del código
 Trivy escanea imágenes de contenedor en CD
@@ -160,7 +159,7 @@ El pipeline falla ante vulnerabilidades CRITICAL
 Enfoque shift‑left de seguridad
 
 
-🏗 Infrastructure as Code
+## 🏗 Infrastructure as Code
 Terraform
 
 Infraestructura definida de forma declarativa
@@ -174,14 +173,14 @@ Playbooks idempotentes
 Ejecución desde WSL (Linux), práctica estándar en entornos Windows
 
 
-💬 ChatOps
+## 💬 ChatOps
 
 Notificaciones automáticas del pipeline de CD en Slack
 Mensajes de éxito y fallo con información del despliegue
 Mejora de visibilidad y feedback del sistema
 
 
-▶️ Ejecución en local (modo desarrollo)
+## ▶️ Ejecución en local (modo desarrollo)
 Backend
 cd app/backend/TaskApi
 dotnet run
@@ -190,7 +189,7 @@ cd app/frontend/task-web
 npm install
 npm start
 
-📁 Estructura del repositorio
+## 📁 Estructura del repositorio
 app/
   ├─ backend/
   └─ frontend/
@@ -203,9 +202,9 @@ infra/
 .github/
   └─ workflows/
 
-📌 Estado del proyecto
+## 📌 Estado del proyecto
 ✅ Implementación DevOps end‑to‑end completada
 ✅ CI/CD, GitOps, Observabilidad, Seguridad, IaC y ChatOps operativos
 
-👤 Autor
+## 👤 Autor
 Proyecto desarrollado por Marco Muñoz Gutiérrez como ejercicio práctico de DevOps / Platform Engineering.
