@@ -8,7 +8,7 @@ import { UpdateTaskRequest } from '../interfaces/update-task-request';
 @Injectable({ providedIn: 'root' })
 export class TaskApiService {
 
-  private baseUrl = '/api/tasks';
+  private baseUrl = 'http://localhost:8082/api/tasks';
 
   private http = inject(HttpClient);
 

@@ -1,0 +1,53 @@
+name: CI - Build & Test
+
+on:
+  pull_request:
+    branches: [ "develop" ]
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # =========================
+      # Backend (.NET)
+      # =========================
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore backend
+        run: |
+          cd app/backend/TaskApi
+          dotnet restore
+
+      - name: Build backend
+        run: |
+          cd app/backend/TaskApi
+          dotnet build --configuration Release --no-restore
+
+      # =========================
+      # Frontend (Angular)
+      # =========================
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/frontend/task-web/package-lock.json
+
+      - name: Install frontend deps
+        run: |
+          cd app/frontend/task-web
+          npm ci
+
+      - name: Build frontend
+        run: |
+          cd app/frontend/task-web
+          npm run build
