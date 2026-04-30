@@ -32,50 +32,50 @@ GitHub (main)
               ├─ OpenTelemetry Collector
               ├─ Prometheus
               └─ Grafana
-````
-## 🧰 Tech Stack
+
+🧰 Tech Stack
 Aplicación
 
 Frontend: Angular
 Backend: .NET 8 Minimal API
 
-## CI/CD
+CI/CD
 
 CI: GitHub Actions
 CD: GitHub Actions
 Container Registry: GitHub Container Registry (GHCR)
 
-## Contenedores y orquestación
+Contenedores y orquestación
 
 Containers: Podman (entorno local)
 Orchestration: Kubernetes (Minikube)
 Packaging: Helm
 
-## Observabilidad
+Observabilidad
 
 Instrumentación: OpenTelemetry
 Métricas: Prometheus (kube‑prometheus‑stack)
 Dashboards: Grafana
 
-## Seguridad (DevSecOps)
+Seguridad (DevSecOps)
 
 Calidad y seguridad de código: SonarCloud
 Vulnerabilidades de contenedores: Trivy (integrado en CD)
 
-## GitOps
+GitOps
 
 Continuous Deployment: ArgoCD
 Modelo declarativo: auto‑sync y self‑healing
 
-## Infrastructure as Code
+Infrastructure as Code
 
 Terraform: definición declarativa de infraestructura
 Ansible: Configuration as Code (idempotente)
 
-## ChatOps
+ChatOps
 
 Slack: notificaciones automáticas del pipeline de CD
-
+````
 
 ## 🔁 Flujo de trabajo (Gitflow)
 El repositorio sigue un flujo de trabajo profesional:
