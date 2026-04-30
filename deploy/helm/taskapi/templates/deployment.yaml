@@ -23,6 +23,10 @@ spec:
               value: "{{ .Values.env.ASPNETCORE_ENVIRONMENT }}"
             - name: ConnectionStrings__Default
               value: "{{ .Values.env.ConnectionStrings__Default }}"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "{{ .Values.env.OTEL_EXPORTER_OTLP_ENDPOINT }}"
+            - name: OTEL_SERVICE_NAME
+              value: "{{ .Values.env.OTEL_SERVICE_NAME }}"
           volumeMounts:
             - name: taskapi-data
               mountPath: {{ .Values.volume.mountPath }}
