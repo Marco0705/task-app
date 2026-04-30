@@ -31,13 +31,11 @@ jobs:
       # Compute image names
       # -------------------------
       - name: Compute image base
-        id: vars
         shell: bash
         run: |
           OWNER_LC="${GITHUB_REPOSITORY_OWNER,,}"
-          echo "OWNER_LC=$OWNER_LC" >> $GITHUB_ENV
-          echo "IMAGE_BACKEND_FULL=${{ env.REGISTRY }}/$OWNER_LC/${{ env.IMAGE_BACKEND }}" >> $GITHUB_ENV
-          echo "IMAGE_FRONTEND_FULL=${{ env.REGISTRY }}/$OWNER_LC/${{ env.IMAGE_FRONTEND }}" >> $GITHUB_ENV
+          echo "IMAGE_BACKEND_FULL=${REGISTRY}/${OWNER_LC}/${IMAGE_BACKEND}" >> $GITHUB_ENV
+          echo "IMAGE_FRONTEND_FULL=${REGISTRY}/${OWNER_LC}/${IMAGE_FRONTEND}" >> $GITHUB_ENV
 
       # -------------------------
       # Login GHCR
@@ -70,7 +68,6 @@ jobs:
           push: false
           tags: ${{ steps.meta_backend.outputs.tags }}
 
-      # 🔐 Trivy scan backend (bloquea CRITICAL)
       - name: Trivy scan (backend)
         uses: aquasecurity/trivy-action@master
         with:
@@ -109,7 +106,6 @@ jobs:
           push: false
           tags: ${{ steps.meta_frontend.outputs.tags }}
 
-      # 🔐 Trivy scan frontend (bloquea CRITICAL)
       - name: Trivy scan (frontend)
         uses: aquasecurity/trivy-action@master
         with:
@@ -128,22 +124,36 @@ jobs:
           labels: ${{ steps.meta_frontend.outputs.labels }}
 
       # =========================
-      # CHATOPS - TEAMS
+      # CHATOPS - SLACK
       # =========================
-      - name: Notify Teams (success)
+      - name: Notify Slack (success)
         if: success()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          curl -H "Content-Type: application/json" \
-               -d '{
-                 "text": "✅ CD SUCCESS\n\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nWorkflow: ${{ github.workflow }}"
-               }' \
-               ${{ secrets.TEAMS_WEBHOOK_URL }}
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "❌ SLACK_WEBHOOK_URL is not set"
+            exit 1
+          fi
 
-      - name: Notify Teams (failure)
+          curl -X POST -H "Content-Type: application/json" \
+            -d "{
+              \"text\": \"✅ CD SUCCESS\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nWorkflow: ${{ github.workflow }}\"
+            }" \
+            "$SLACK_WEBHOOK_URL"
+
+      - name: Notify Slack (failure)
         if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          curl -H "Content-Type: application/json" \
-               -d '{
-                 "text": "❌ CD FAILED\n\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nWorkflow: ${{ github.workflow }}"
-               }' \
-               ${{ secrets.TEAMS_WEBHOOK_URL }}
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "❌ SLACK_WEBHOOK_URL is not set"
+            exit 1
+          fi
+
+          curl -X POST -H "Content-Type: application/json" \
+            -d "{
+              \"text\": \"❌ CD FAILED\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nWorkflow: ${{ github.workflow }}\"
+            }" \
+            "$SLACK_WEBHOOK_URL"
