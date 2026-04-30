@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: taskapi
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "{{ .Values.env.ASPNETCORE_ENVIRONMENT }}"
+            - name: ConnectionStrings__Default
+              value: "{{ .Values.env.ConnectionStrings__Default }}"
+          volumeMounts:
+            - name: taskapi-data
+              mountPath: {{ .Values.volume.mountPath }}
+      volumes:
+        - name: taskapi-data
+          emptyDir: {}
