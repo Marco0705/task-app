@@ -1,0 +1,22 @@
+- name: Prepare DevOps workstation
+  hosts: local
+  gather_facts: false
+  become: false
+
+  tasks:
+    - name: Ensure tools file exists
+      file:
+        path: ./installed-tools.txt
+        state: touch
+
+    - name: Register DevOps tools
+      lineinfile:
+        path: ./installed-tools.txt
+        line: "{{ item }}"
+        create: yes
+      loop:
+        - kubectl
+        - helm
+        - terraform
+        - trivy
+        - argocd
