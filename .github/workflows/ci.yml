@@ -8,11 +8,17 @@ on:
 
 jobs:
   ci:
+    name: Build & Test
     runs-on: ubuntu-latest
 
     steps:
+      # -------------------------
+      # Checkout
+      # -------------------------
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # necesario para SonarCloud
 
       # =========================
       # Backend (.NET)
@@ -51,3 +57,31 @@ jobs:
         run: |
           cd app/frontend/task-web
           npm run build
+
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      # -------------------------
+      # Checkout (full history)
+      # -------------------------
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # -------------------------
+      # SonarCloud Scan
+      # -------------------------
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=marco0705
+            -Dsonar.projectKey=Marco0705_task-app
+            -Dsonar.sources=app
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/*.spec.ts
