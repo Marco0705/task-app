@@ -1,10 +1,10 @@
 # Task App — DevOps End‑to‑End Project
 
-Aplicación web de gestión de tareas desarrollada como **proyecto final de DevOps / Platform Engineering**.
+Aplicación web de gestión de tareas desarrollada como **proyecto final de DevOps**.
 
 El objetivo del proyecto es demostrar una implementación **end‑to‑end** de prácticas DevOps reales, cubriendo todo el ciclo de vida de una aplicación: desarrollo, CI/CD, contenedores, Kubernetes, GitOps, observabilidad, seguridad (DevSecOps), Infrastructure as Code (IaC) y ChatOps.
 
-Este repositorio está diseñado como **proyecto de portfolio profesional**, siguiendo patrones y decisiones habituales en equipos DevOps y Platform Engineering.
+Este repositorio está diseñado como **proyecto de portfolio profesional**, siguiendo patrones y decisiones habituales en equipos DevOps.
 
 ---
 
@@ -216,4 +216,4 @@ observability/
 ✅ CI/CD, GitOps, Observabilidad, Seguridad, IaC y ChatOps operativos
 
 ## 👤 Autor
-Proyecto desarrollado por Marco Muñoz Gutiérrez como ejercicio práctico de DevOps / Platform Engineering.
+Proyecto desarrollado por **Marco Muñoz Gutiérrez**.
