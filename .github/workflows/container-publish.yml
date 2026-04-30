@@ -126,3 +126,24 @@ jobs:
           push: true
           tags: ${{ steps.meta_frontend.outputs.tags }}
           labels: ${{ steps.meta_frontend.outputs.labels }}
+
+      # =========================
+      # CHATOPS - TEAMS
+      # =========================
+      - name: Notify Teams (success)
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -d '{
+                 "text": "✅ CD SUCCESS\n\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nWorkflow: ${{ github.workflow }}"
+               }' \
+               ${{ secrets.TEAMS_WEBHOOK_URL }}
+
+      - name: Notify Teams (failure)
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -d '{
+                 "text": "❌ CD FAILED\n\nRepository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nWorkflow: ${{ github.workflow }}"
+               }' \
+               ${{ secrets.TEAMS_WEBHOOK_URL }}
