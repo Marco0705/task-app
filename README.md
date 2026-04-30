@@ -202,6 +202,11 @@ deploy/
 infra/
   ├─ terraform/
   └─ ansible/
+observability/
+  ├─ otel-collector.yaml
+  ├─ otel-collector-service.yaml
+  ├─ otel-collector-servicemonitor.yaml
+  └─ prometheus-values.yaml
 .github/
   └─ workflows/
 ````
