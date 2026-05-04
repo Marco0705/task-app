@@ -87,14 +87,13 @@ Ventajas obtenidas:
 
 ## 7. Observabilidad
 
-La observabilidad se implantó como un requisito esencial:
+El proyecto incorpora un stack de observabilidad basado en **OpenTelemetry, Prometheus y Grafana**, desplegado en Kubernetes junto con la aplicación.
 
-- Instrumentación automática del backend con OpenTelemetry.
-- Exportación de métricas al OpenTelemetry Collector.
-- Recolección de métricas con Prometheus Operator y ServiceMonitor.
-- Visualización en Grafana (latencia, throughput, errores).
+OpenTelemetry se utiliza para la instrumentación de la aplicación backend, enviando métricas al **OpenTelemetry Collector**, que actúa como punto central de ingestión. Prometheus y Grafana forman parte del stack de monitorización desplegado mediante kube‑prometheus‑stack.
 
-Esto permite entender el comportamiento real del sistema y facilita el diagnóstico de problemas.
+En el estado actual del proyecto, la infraestructura de observabilidad está **correctamente desplegada y operativa**, aunque el scraping de métricas de aplicación no está activado mediante **ServiceMonitor / PodMonitor**. Esta decisión responde a un control consciente del alcance, priorizando la integración end‑to‑end de CI/CD, GitOps y Kubernetes.
+
+La arquitectura queda preparada para una ampliación futura, donde bastaría añadir los recursos de scraping para habilitar métricas de aplicación y dashboards específicos en Grafana, sin necesidad de modificar el stack existente.
 
 ---
 
