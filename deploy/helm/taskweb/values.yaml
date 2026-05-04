@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/marco0705/taskweb
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: latest
 
 service:
