@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: taskweb
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Marco0705/task-app.git
+    targetRevision: main
+    path: deploy/helm/taskweb
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: task-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
