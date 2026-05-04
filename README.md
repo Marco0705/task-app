@@ -11,7 +11,6 @@ Este repositorio está diseñado como **proyecto de portfolio profesional**, sig
 ## 🏗 Visión general de la arquitectura
 
 ````
-
 Developer
   └─ Git (develop → Pull Request → main)
         ├─ CI (GitHub Actions)
@@ -123,7 +122,6 @@ Escaneo Trivy (bloquea vulnerabilidades CRITICAL)
 Push a GHCR
 Notificación automática a Slack
 
-
 ## ☸️ Kubernetes y GitOps
 
 Cluster local con Minikube
@@ -136,21 +134,15 @@ Auto‑sync
 Self‑healing
 Git como única fuente de la verdad
 
-
 ## 📊 Observabilidad
 
-Backend instrumentado con OpenTelemetry
-Métricas y trazas enviadas al OpenTelemetry Collector
-Prometheus recolecta métricas mediante ServiceMonitor
-Grafana visualiza:
+El proyecto incorpora un stack de observabilidad basado en **OpenTelemetry, Prometheus y Grafana**, desplegado en Kubernetes junto con la aplicación.
 
-Latencia HTTP
-Throughput
-Errores
-Consumo de recursos
+OpenTelemetry se utiliza para la instrumentación de la aplicación backend, enviando métricas al **OpenTelemetry Collector**, que actúa como punto central de ingestión. Prometheus y Grafana forman parte del stack de monitorización desplegado mediante kube‑prometheus‑stack.
 
+En el estado actual del proyecto, la infraestructura de observabilidad está **correctamente desplegada y operativa**, aunque el scraping de métricas de aplicación no está activado mediante **ServiceMonitor / PodMonitor**. Esta decisión responde a un control consciente del alcance, priorizando la integración end‑to‑end de CI/CD, GitOps y Kubernetes.
 
-
+La arquitectura queda preparada para una ampliación futura, donde bastaría añadir los recursos de scraping para habilitar métricas de aplicación y dashboards específicos en Grafana, sin necesidad de modificar el stack existente.
 
 ## 🔐 Seguridad (DevSecOps)
 
@@ -158,7 +150,6 @@ SonarCloud asegura calidad y seguridad del código
 Trivy escanea imágenes de contenedor en CD
 El pipeline falla ante vulnerabilidades CRITICAL
 Enfoque shift‑left de seguridad
-
 
 ## 🏗 Infrastructure as Code
 Terraform
@@ -173,7 +164,6 @@ Configuration as Code
 Playbooks idempotentes
 Ejecución desde WSL (Linux), práctica estándar en entornos Windows
 
-
 ## 💬 ChatOps
 
 Notificaciones automáticas del pipeline de CD en Slack
@@ -182,6 +172,7 @@ Mejora de visibilidad y feedback del sistema
 
 
 ## ▶️ Ejecución en local (modo desarrollo)
+
 Backend
 cd app/backend/TaskApi
 dotnet run
@@ -211,8 +202,10 @@ observability/
 ````
 
 ## 📌 Estado del proyecto
+
 ✅ Implementación DevOps end‑to‑end completada
 ✅ CI/CD, GitOps, Observabilidad, Seguridad, IaC y ChatOps operativos
 
 ## 👤 Autor
+
 Proyecto desarrollado por **Marco Muñoz Gutiérrez**.
