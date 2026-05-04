@@ -32,7 +32,6 @@ GitHub (main)
               ├─ OpenTelemetry Collector
               ├─ Prometheus
               └─ Grafana
-
 🧰 Tech Stack
 Aplicación
 
